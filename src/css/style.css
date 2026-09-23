@@ -1,0 +1,17 @@
+@import "fonts.css";
+
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Satoshi-Web', system-ui, -apple-system, sans-serif;
+
+    /* --color-*: initial; */
+    /* --color-dark-bg: #0e0e11;
+    --color-dark-card: #18181b;
+    --color-dark-details: #30302e;
+    --color-dark-white: #f8f8f8;
+
+    --color-accent-red: #ff4646;
+    --color-accent-orange: #e39820;
+    --color-accent-green: #84d554; */
+}

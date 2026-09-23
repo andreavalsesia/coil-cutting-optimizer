@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="preload" href="/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+  <title>Coil Cutting Optimizer</title>
+</head>
+
+<body class="bg-neutral-50 text-neutral-800 p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <header class="border-b border-neutral-200 pb-4">
+      <h1 class="text-2xl font-bold text-neutral-900">Ottimizzatore Taglio Bobine</h1>
+      <p class="text-sm text-neutral-500">Calcolo della configurazione di taglio a minimo scarto mediante Backtracking
+      </p>
+    </header>
+
+    <!-- Form Parametri e Pezzi -->
+    <form id="cutting-form" class="space-y-6">
+
+      <!-- Sezione 1: Parametri Generali -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <div>
+          <label for="input-coil-length" class="block text-xs font-semibold text-neutral-800 uppercase mb-1">
+            Lunghezza Bobina
+          </label>
+          <div class="flex align-bottom items-baseline content-baseline gap-2">
+            <input type="number" id="input-coil-length" required min="1" step="any"
+              class="w-2/3 px-3 py-1 bg-white border border-neutral-300 rounded-lg focus:ring-1 focus:border-neutral-400 ring-neutral-400 outline-none text-neutral-900">
+            <span class="align-baseline text-xs font-semibold text-neutral-500">MM</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="input-offcut-min-length" class="block text-xs font-semibold text-neutral-800 uppercase mb-1">
+            Lunghezza Minima dello Scarto
+          </label>
+          <div class="w-2/3 flex align-bottom items-baseline content-baseline gap-2">
+            <input type="number" id="input-offcut-min-length" required min="0" step="any"
+              class="w-full px-3 py-1 bg-white border border-neutral-300 rounded-lg focus:ring-1 focus:border-neutral-400 ring-neutral-400 outline-none text-neutral-900">
+            <span class="align-baseline text-xs font-semibold text-neutral-500">MM</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="select-method" class="block text-xs font-semibold text-neutral-800 uppercase mb-1">
+            Metodo Ottimizzazione
+          </label>
+          <select id="select-method"
+            class="w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-1 focus:border-neutral-400 ring-neutral-400 outline-none bg-white text-neutral-900">
+            <!-- Opzioni collegate all'Enum -->
+          </select>
+        </div>
+
+      </div>
+
+      <hr class="border-neutral-100" />
+
+      <!-- Sezione 2: Elenco Pezzi Dinamico -->
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-base font-semibold text-neutral-800">Pezzi da Tagliare</h2>
+          <button type="button" id="btn-add-piece-row"
+            class="inline-flex items-center gap-1 text-sm font-medium text-neutral-700 hover:text-neutral-800 bg-neutral-100 hover:bg-neutral-200 px-3 py-1.5 rounded-lg transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Aggiungi Pezzo
+          </button>
+        </div>
+
+        <!-- Tabella Inserimento Pezzi -->
+        <div class="overflow-x-auto border border-neutral-200 rounded-lg">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead class="bg-neutral-50 border-b border-neutral-200 text-neutral-500 uppercase text-xs">
+              <tr>
+                <th class="py-2.5 px-3">Etichetta / Colore</th>
+                <th class="py-2.5 px-3">Lunghezza (mm)</th>
+                <th class="py-2.5 px-3">Quantità (N°)</th>
+                <th class="py-2.5 px-3 w-12 text-center hidden sm:table-cell">Azione</th>
+              </tr>
+            </thead>
+            <tbody id="pieces-table-body" class="divide-y divide-neutral-100">
+              <!-- Le righe verranno generate dinamicamente da JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pulsante di Calcolo -->
+      <button type="submit" id="btn-submit"
+        class="px-6 bg-neutral-700 hover:bg-neutral-800 text-white font-medium py-2.5 rounded-lg shadow-sm transition-colors text-base">
+        Calcola Disposizione Ottimale
+      </button>
+
+    </form>
+
+    <!-- Area Risultati dell'Elaborazione -->
+    <div id="output-container" class="hidden bg-white border border-neutral-200 rounded-xl p-6 space-y-4">
+      <h2 class="text-xl font-bold text-neutral-900 border-b pb-2 border-neutral-100">Istruzioni di Taglio</h2>
+      <div id="output-content"></div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

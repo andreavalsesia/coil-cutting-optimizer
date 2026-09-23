@@ -27,11 +27,10 @@ export function optimizeCut(
             // Verifica se il pezzo ci sta nella bobina
             if (currentUsed + piece <= coilLength) {
                 // Calcola lo scarto potenziale con e senza il nuovo pezzo
-                const oldOffcut = coilLength - currentUsed;
                 const newOffcut = coilLength - (currentUsed + piece);
 
                 // Valuta il punteggio dell'impatto di questa scelta
-                const scoreDiff = evaluatePlacementScore(newOffcut, oldOffcut, minOffcut, method);
+                const scoreDiff = evaluatePlacementScore(newOffcut, minOffcut, method);
 
                 if (scoreDiff < bestAddedPenalty) {
                     bestAddedPenalty = scoreDiff;
@@ -63,7 +62,6 @@ export function optimizeCut(
  */
 function evaluatePlacementScore(
     newOffcut: number,
-    oldOffcut: number,
     targetLength: number,
     method: OptimizationMethod
 ): number {
